@@ -1,6 +1,6 @@
 # wn
 
-वन (forest) of notes built with [Forester](https://www.forester-notes.org/index/).
+वन /ʋən/ (forest) of notes built with [Forester](https://www.forester-notes.org/index/).
 Published at https://threewisemonkeys-as.github.io/wn/.
 
 ## Local use
