@@ -25,7 +25,7 @@ scripts/serve-local.sh --static   # the exact GitHub Pages build, served at http
 ```
 
 Both restart or rebuild when trees, assets, the theme or `forest.local.toml`
-change. Cmd/Ctrl+K searches trees, Cmd/Ctrl+E edits the current tree.
+change, and open pages reload themselves afterwards. Cmd/Ctrl+K searches trees, Cmd/Ctrl+E edits the current tree.
 
 The built pages are XML styled by XSLT with site-absolute paths, so opening
 the files in `output/` directly (`file://`) does not work: browsers refuse to

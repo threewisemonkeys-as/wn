@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Preview the forest locally, restarting/rebuilding whenever trees, assets,
-# the theme or forest.local.toml change.
+# the theme or forest.local.toml change; open pages then reload themselves.
 #
 # Usage: scripts/serve-local.sh [--static] [port]
 #
@@ -25,8 +25,37 @@ snapshot() { find trees assets theme forest.local.toml -type f -exec stat -f '%m
 build_static() {
   mkdir -p .local-build
   for f in trees assets theme forest.local.toml; do ln -sfn "$ROOT/$f" ".local-build/$f"; done
-  (cd .local-build && rm -rf output && forester build --dev forest.local.toml >/dev/null) \
-    && echo "Built .local-build/output" || echo "Build failed"
+  if (cd .local-build && rm -rf output && forester build --dev forest.local.toml >/dev/null); then
+    add_live_reload .local-build/output
+    echo "Built .local-build/output"
+  else
+    echo "Build failed"
+  fi
+}
+
+# Live reload for the static preview: every page loads forester.js, so append
+# a poller that reloads the page when build-id changes (on every rebuild).
+add_live_reload() {
+  echo "$(date +%s)-$RANDOM" > "$1/build-id"
+  cat >> "$1/forester.js" <<'EOF'
+
+// Added by scripts/serve-local.sh --static (not part of the published site).
+(() => {
+  let current = null;
+  const poll = async () => {
+    try {
+      const response = await fetch("/build-id", { cache: "no-store" });
+      if (response.ok) {
+        const id = (await response.text()).trim();
+        if (current === null) current = id;
+        else if (id !== current) { location.reload(); return; }
+      }
+    } catch (_) {}
+    setTimeout(poll, 1000);
+  };
+  poll();
+})();
+EOF
 }
 
 start() {
