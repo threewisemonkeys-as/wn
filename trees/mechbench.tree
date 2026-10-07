@@ -1,0 +1,12 @@
+\title{MechBench}
+
+\p{Zihan Yu et al., Tsinghua FIB Lab; Sept 28 2026, [arXiv 2609.35515](https://arxiv.org/abs/2609.35515).}
+
+\ul{
+  \li{\strong{What it is:} A benchmark that separates recovering a phenomenal law (the formula describing observable behavior) from identifying the mechanism that produces it. The authors argue that existing symbolic-regression and agent benchmarks test only the first. It has 512 tasks across 4 fields, built from canonical mechanisms.}
+  \li{\strong{Setup:} Agents receive only the scientific context and training observations. The reference mechanism, the mechanism probes and the held-out data stay hidden. Tasks are built from controlled mutations of known mechanisms and screened so that the hidden mechanism is distinguishable from alternatives.}
+  \li{\strong{Scoring:} The observable law is checked on training, in-distribution and out-of-distribution data. The hidden mechanism is checked with separate mechanism probes that ask about internal consequences the phenomenal law alone can't reveal. All scoring uses symbolic equivalence and numerical accuracy, with no LLM judge.}
+  \li{\strong{Mechanism probe:} a question about a hidden quantity inside the system, which you can only answer correctly if your model has the right internal parts. A program checks your number against the true one. See [[eval-mechanisms]] for a worked example.}
+  \li{\strong{Results:} With Codex running GPT-5.6-sol, phenomenal-law accuracy is 35.00\% on the Core-set but mechanism accuracy is only 13.75\%. Mechanism recovery fails in 64.29\% of the cases where the law itself was recovered correctly.}
+  \li{\strong{Relation to [DiscoverPhysics](discoverphysics):} It turns DiscoverPhysics's "fits without understanding" finding into the main measurement, and replaces the LLM-judged explanation score with objective probes. That addresses the main weakness [MDA](mda) criticized.}
+}

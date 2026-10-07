@@ -10,6 +10,11 @@
     \transclude{eurekabench}
     \transclude{scilawsbench}
     \transclude{explorationbench}
+    \transclude{mechbench}
+  }
+  \subtree{
+    \title{Abstract}
+    \transclude{zendoworld}
   }
   \subtree{
     \title{Older}
@@ -22,6 +27,7 @@
   \subtree{
     \title{Direct}
     \transclude{mda}
+    \transclude{mira}
   }
   \subtree{
     \title{Abstract}

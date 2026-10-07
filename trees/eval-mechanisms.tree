@@ -28,7 +28,7 @@
 
 \subtree{
   \title{Extra check 2: mechanism probes (MechBench)}
-  \p{[MechBench](https://arxiv.org/abs/2609.35515) (Tsinghua, Sept 2026) asks for a \em{number} about a hidden quantity inside the system, one that the observed data alone cannot pin down. After the agent hands in its mechanism, the mechanism is locked and each probe is asked separately. A program then checks the answer against the true formula, with no AI judge involved.}
+  \p{[MechBench](mechbench) (Tsinghua, Sept 2026) asks for a \em{number} about a hidden quantity inside the system, one that the observed data alone cannot pin down. After the agent hands in its mechanism, the mechanism is locked and each probe is asked separately. A program then checks the answer against the true formula, with no AI judge involved.}
   \p{\strong{Example (planet orbits):} The agent only sees how long planets take to orbit at different distances. The pattern in that data is Kepler's law, #{T^2 = 4\pi^2 r^3 / GM}. A probe asks:}
   \blockquote{What is the magnitude of the centripetal acceleration experienced by the planet?}
   \ul{

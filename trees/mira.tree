@@ -1,0 +1,72 @@
+\title{MIRA: Meta-reasoning for Iterative Research Agents}
+\xmlns:html{http://www.w3.org/1999/xhtml}
+
+\p{Samanta, Efroni, Sajda, Hassani, Goyal; Meta AI / Columbia / Tel Aviv University; Oct 1 2026, [arXiv 2610.02525](https://arxiv.org/abs/2610.02525).}
+
+\ul{
+  \li{\strong{What it is:} A method rather than a benchmark. It splits a research agent into two layers:
+    \ul{
+      \li{\strong{Outer meta-reasoner:} reads a curated view of a persistent Git research record. It then either writes a work order (objective, approach, success criteria) or decides to stop.}
+      \li{\strong{Inner executor:} a fresh Codex agent for each work order, which runs the investigation and writes a handover back to the record.}
+    }
+    However long an investigation runs, it counts as one decision step at the outer level. That gives a clean place to estimate value and assign credit.
+  }
+  \li{\strong{Training (MIRA-AC):} one Qwen3.6-27B model, fine-tuned with LoRA, plays two roles:
+    \ul{
+      \li{It acts as a critic, predicting how much more improvement the episode will produce from the current state.}
+      \li{It acts as the policy, choosing what to investigate next.}
+    }
+    Only the outer decision text gets the policy update. The executor traces, curation and tool calls are not trained, and the decision text is only 25.8\% of output tokens. Training uses cheap "proxy" feedback during research, while results are scored on a separate held-out "gold" evaluation.
+  }
+}
+
+\subtree{
+  \title{Results without training (frozen frontier models)}
+  \ul{
+    \li{\strong{Theorem proving (IMOProofBench Advanced):} GPT-5.5 inside MIRA goes from 67.1\% to 100\% on all 30 problems, in every one of three trials. Most of that gap disappears when the baselines are forced to generate as many tokens as MIRA. The remaining gap is on four problems, where MIRA switches between proof directions more often.}
+    \li{\strong{Architecture research:} MIRA reached the lowest loss in matched 24-hour runs on the Residual Matrix Transformer (GPT-5.5), and beat Codex in matched 48-hour runs on the Loop Transformer (GPT-6 Astra). On the Loop Transformer it arrived at something close to Differential Attention.}
+  }
+}
+
+\subtree{
+  \title{Results with training (Qwen-27B, four environments)}
+  \<html:table>{
+    \<html:tr>{\<html:th>{Environment}\<html:th>{Untrained MIRA}\<html:th>{Best trained}\<html:th>{Cross-environment MIRA-AC}}
+    \<html:tr>{\<html:td>{Symbolic regression (solved /100)}\<html:td>{50}\<html:td>{65}\<html:td>{63}}
+    \<html:tr>{\<html:td>{Physics Discovery (solved /100)}\<html:td>{8}\<html:td>{10}\<html:td>{10}}
+    \<html:tr>{\<html:td>{HillClimbBench-CPU (wins /100 vs untrained)}\<html:td>{—}\<html:td>{58}\<html:td>{55}}
+    \<html:tr>{\<html:td>{BNLearn causal discovery (solved /100)}\<html:td>{76}\<html:td>{84}\<html:td>{84}}
+  }
+  \p{The cross-environment policy got no actor training on BNLearn and still matched the best BNLearn result. The caveat is that BNLearn was included when the critic was pretrained.}
+}
+
+\subtree{
+  \title{The DiscoverPhysics connection}
+  \p{"Physics Discovery" is [DiscoverPhysics](discoverphysics), adapted. That makes this a third method evaluated on it, alongside EvoSCM and [MDA](mda). The adaptation differs from the original in several ways:}
+  \ul{
+    \li{\strong{Worlds:} 100 anonymous worlds spanning 12 mechanisms and 3 difficulty levels, instead of the original 22 curated worlds.}
+    \li{\strong{Budget:} 15 experiment rounds spread over 20 decisions.}
+    \li{\strong{Explanation judge:} GPT-5.5 instead of Claude Opus 4.6.}
+    \li{\strong{Pass bar:} an explanation score of at least \strong{0.75}, looser than the original 0.9. The normalized MSE threshold stays below 0.1.}
+  }
+}
+
+\subtree{
+  \title{What happened on physics specifically}
+  \ul{
+    \li{\strong{Weak improvement:} the solved count rises only from 8 to 10 of 100. The gold-feedback MIRA-AC variant actually drops to 6. Most of the gain shows up as better partial law recovery, with law quality going from 0.21 to about 0.30.}
+    \li{\strong{Absolute numbers are very low.} That fits the original DiscoverPhysics finding that open models struggle.}
+    \li{\strong{Behavior changes are the clearest effect.} The LLM judge found the trained agent more often revised its mechanism (51\% vs 22\% of trajectories) and ran experiments that distinguished between hypotheses (28\% vs 15\%). Repeating small variations of an idea that wasn't working fell from 51\% to 23\%, and stopping too early from 27\% to 6\%. In one success case, it varied a single parameter to find the correct coupling p1/p2, scoring 1.0 against 0.005 for the untrained agent.}
+    \li{\strong{The flip side is chasing the proxy.} In another case it found the correct inverse-square law, then spent its whole remaining budget collecting trajectories to raise the proxy fit score. It ended at 0.0009, while the untrained agent validated the law and scored 1.0.}
+  }
+}
+
+\subtree{
+  \title{Caveats}
+  \ul{
+    \li{\strong{Same tasks:} the scientific environments are trained and evaluated on the same task identities and seeds. Evaluation uses new trajectories, not unseen tasks.}
+    \li{\strong{Small evidence base:} there is one training run per configuration, and the main table has no confidence intervals. On physics, a difference of one or two solved worlds is within noise.}
+    \li{\strong{Judge-based analysis:} the behavioral findings come from an LLM judge (GPT-5.5) and describe the runs rather than prove causes. Forced continuations were also unequal between the two policies: 57 vs 17 in symbolic regression.}
+    \li{\strong{Weaker reference point:} the looser explanation threshold and different judge mean the physics numbers can't be compared directly with DiscoverPhysics's or EvoSCM's pass rates.}
+  }
+}

@@ -4,6 +4,7 @@
 
 \ul{
   \li{\strong{What it is:} 26 expert-verified long-horizon tasks across neuroscience, computer science, chemistry, astrophysics, geophysics, and plasma physics, with 306 scientific insights the discovered mechanisms are expected to support. [arxiv](https://arxiv.org/html/2610.00492v1)}
+  \li{\strong{Scientific insight:} a yes/no question about what your mechanism lets you explain or predict. An expert writes it, and an AI judge decides whether your mechanism actually supports the answer. See [[eval-mechanisms]] for a worked example.}
   \li{\strong{Relation to [DiscoverPhysics](discoverphysics):} It calls DiscoverPhysics the closest prior work, since both score trajectory prediction and conceptual explanations against expert rubrics. [arxiv](https://arxiv.org/html/2610.00492v1)}
   \li{\strong{Finding:} the same fit-versus-understanding gap. GPT 6 Astra nearly matches humans on predictive accuracy (47.4\% vs 48.8\%) but scores only 29.4\% on insights, against 69.7\% for human mechanisms. [arxiv](https://arxiv.org/html/2610.00492v1)}
 }
