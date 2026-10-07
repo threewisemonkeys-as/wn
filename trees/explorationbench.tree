@@ -1,0 +1,8 @@
+\title{ExplorationBench}
+
+\p{Fudan/Tencent, Sept 2026, [arXiv 2609.30199](https://arxiv.org/pdf/2609.30199).}
+
+\ul{
+  \li{\strong{What it is:} "Alien worlds" whose rules are executable, so answers can be checked exactly, and conflict with familiar knowledge, so recall alone can't solve them. The domains are code and logic rather than physics. [arxiv](https://arxiv.org/pdf/2609.30199)}
+  \li{\strong{Finding:} it echoes [DiscoverPhysics](discoverphysics)'s guided-versus-random experiment ablation. Exploration works best when the system designs its own experiments. [arxiv](https://arxiv.org/pdf/2609.30199)}
+}

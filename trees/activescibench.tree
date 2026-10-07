@@ -1,0 +1,28 @@
+\title{LLM-AutoSciLab / ActiveSciBench}
+
+\p{Kabra, Abhyankar, Desai, Iyer, Reddy; May 2026, [arXiv 2605.24043](https://arxiv.org/abs/2605.24043).}
+
+\ul{
+  \li{\strong{What it is:} Two things in one paper:
+    \ul{
+      \li{A method, LLM-AutoSciLab: a closed loop that generates hypotheses, chooses experiments to tell them apart or refine them, and updates its beliefs from the results.}
+      \li{A benchmark, ActiveSciBench, with two parts: ActiveSciBench-Chem (57 enzyme-kinetics tasks) and ActiveSciBench-GRN (45 gene-regulatory-network tasks).}
+    }
+  }
+  \li{\strong{Motivation:} Most approaches treat discovery as fitting a model to a fixed dataset. With limited data, several mechanisms can fit locally and still fail to generalize, so the real problem is choosing which observations to collect.}
+  \li{\strong{Setup:} Discovery runs under an experiment budget. The agent has to design experiments adaptively, decide which variables matter, and recover the true mechanism.}
+  \li{\strong{Results:}
+    \ul{
+      \li{Symbolic accuracy of 67.6\% on NewtonBench and 35.1\% on ActiveSciBench-Chem.}
+      \li{31.1\% exact graph recovery on ActiveSciBench-GRN.}
+      \li{Hypothesis-guided experimentation is 2–5× more sample-efficient than the strongest baselines.}
+    }
+  }
+  \li{\strong{What later papers found:}
+    \ul{
+      \li{[MDA](mda) re-ran it on ActiveSciBench-Chem and found that its symbolic-regression (PySR) step can produce equations with very low error that are mechanistically meaningless. One example scored an error of 0.001 but was symbolically wrong. MDA beat it at the same budget, 56\% vs 42\% symbolic accuracy.}
+      \li{EvoSCM used ActiveSciBench-GRN as its biology benchmark and raised exact graph accuracy to about 70–77\%.}
+    }
+  }
+  \li{\strong{Caveats:} The GRN tasks restrict the agent to a public, fixed grammar of five motif families. They test telling known structures apart, not discovering a structure from scratch.}
+}

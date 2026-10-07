@@ -1,0 +1,18 @@
+\title{DiscoverPhysics}
+
+\p{Wiemann, Smith, Melchior, Mishra-Sharma, Wilson, Izmailov, Cuesta-Lázaro; Princeton/NYU/Flatiron; May 2026, [arXiv 2605.26087](https://arxiv.org/pdf/2605.26087).}
+
+\ul{
+  \li{\strong{What it is:} An interactive benchmark where an LLM agent must discover the laws of motion in a simulated world whose physics deliberately departs from ours. It has 22 worlds, including screened and fractional-power gravity, multi-species couplings, hidden dark-matter-like particles, non-coordinate-free physics, and time-varying interactions. [arxiv](https://arxiv.org/pdf/2605.26087)}
+  \li{\strong{Setup:} An N-body simulator generates each world on demand. The agent proposes several rounds of experiments, observes raw trajectory data, and then submits both a natural-language explanation of the physics and a Python implementation of the inferred law. Half the worlds (11) are public and the other 11 are kept private to protect the benchmark's validity. [arxiv](https://arxiv.org/pdf/2605.26087)}
+  \li{\strong{Scoring:} Two axes: trajectory MSE on held-out particles, and an LLM-judged explanation score against an expert-written rubric. A world counts as passed only if normalized MSE is below 0.1 and the explanation score is at least 0.9. [arxiv](https://arxiv.org/pdf/2605.26087)}
+  \li{\strong{Results:}
+    \ul{
+      \li{Across eleven frontier models, the strongest agents pass only about half the worlds, and they consistently fail where latent structure such as hidden species or extra dimensions must be uncovered. [arxiv](https://arxiv.org/pdf/2605.26087)}
+      \li{Claude Opus 4.7 reaches 26.4\% pass@1 and 50\% pass@5, and GPT-5.5 reaches 21.7\% pass@1 and 36.4\% pass@5. [arxiv](https://arxiv.org/pdf/2605.26087)}
+      \li{Open-source models lag substantially, both in designing informative experiments and in drawing conclusions from the data. [arxiv](https://arxiv.org/pdf/2605.26087)}
+    }
+  }
+  \li{\strong{Key finding:} Prediction and understanding come apart. The model with the lowest MSE does not have the highest explanation score, and it gains less from extra experiment rounds. The authors read this as fitting the data without revising the conceptual picture. [arxiv](https://arxiv.org/pdf/2605.26087)}
+  \li{\strong{Caveats:} The explanation score relies on a single LLM judge (Claude Opus 4.6), and the pass thresholds are somewhat arbitrary. Follow-up work ([MDA](mda)) dropped the explanation criterion as unreliable. [arxiv](https://arxiv.org/pdf/2605.26087)}
+}

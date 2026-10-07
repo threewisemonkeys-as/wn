@@ -1,0 +1,8 @@
+\title{SciLaws-Bench}
+
+\p{UCSD, Sept 2026, [arXiv 2609.01552](https://arxiv.org/html/2609.01552v1).}
+
+\ul{
+  \li{\strong{What it is:} 118 problems drawn from 381 papers across six disciplines. Its "Parallel" setting has models actively query calibrated worlds to recover hidden laws derived from published forms. [arxiv](https://arxiv.org/html/2609.01552v1)}
+  \li{\strong{Relation to [DiscoverPhysics](discoverphysics):} it doesn't appear to cite it, but uses the same "altered world" idea, grounded in real data.}
+}

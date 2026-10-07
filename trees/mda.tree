@@ -1,0 +1,11 @@
+\title{Model Discovery Agent (MDA)}
+
+\p{Kevin Murphy, UBC, Aug 2026, [arXiv 2608.09696](https://arxiv.org/html/2608.09696v2).}
+
+\ul{
+  \li{\strong{Method:} An LLM proposes candidate mechanisms, combined with sequential Monte Carlo for parameter and structure posteriors and value-of-information for experiment design. When the truth lies outside the current hypotheses, a predictive check flags it and the LLM expands the hypothesis space. [arxiv](https://arxiv.org/html/2608.09696v2)}
+  \li{\strong{Setup:} "ForceBench" is a wrapper on [DiscoverPhysics](discoverphysics) that changes only the interface, not the benchmark. [arxiv](https://arxiv.org/html/2608.09696v2)}
+  \li{\strong{Results:} MDA passes numerically in 93\% of runs versus 31\% for the LLM agent at the same 8-experiment budget. Run unthrottled, the LLM agent uses about 41 experiments to reach the accuracy MDA gets with 8, roughly a 5× data-efficiency advantage. [arxiv](https://arxiv.org/html/2608.09696v2)}
+  \li{\strong{Critique of the benchmark:} The authors dropped the LLM-judged explanation score from the pass criterion because they found it unreliable. [arxiv](https://arxiv.org/html/2608.09696v2)}
+  \li{\strong{Caveat:} With the stronger Fable 5 as the agent, the gap narrows sharply. [arxiv](https://arxiv.org/html/2608.09696v2)}
+}

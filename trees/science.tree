@@ -1,0 +1,29 @@
+\title{Science}
+
+\subtree{
+  \title{Benchmarks}
+  \subtree{
+    \title{Real}
+    \transclude{discoverphysics}
+    \transclude{activescibench}
+    \transclude{eurekabench}
+    \transclude{scilawsbench}
+    \transclude{explorationbench}
+  }
+  \subtree{
+    \title{Older}
+    \transclude{scienceworld}
+  }
+}
+
+\subtree{
+  \title{Methods}
+  \subtree{
+    \title{Direct}
+    \transclude{mda}
+  }
+  \subtree{
+    \title{Abstract}
+    \transclude{learning-to-theorise}
+  }
+}
