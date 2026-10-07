@@ -1,8 +1,9 @@
 \title{AI4Science Benchmarks}
 
+\transclude{eval-mechanisms}
+
 \subtree{
   \title{Benchmarks}
-  \transclude{eval-mechanisms}
   \subtree{
     \title{Real}
     \transclude{discoverphysics}

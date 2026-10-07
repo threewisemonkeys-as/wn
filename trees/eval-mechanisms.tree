@@ -1,4 +1,4 @@
-\title{How benchmarks check a discovered mechanism}
+\title{Evaluation mechanisms}
 
 \p{In these benchmarks, an AI agent studies some data, runs experiments, and then hands in a model of how the system works. The hard part is grading that model.}
 
