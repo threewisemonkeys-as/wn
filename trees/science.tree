@@ -2,6 +2,7 @@
 
 \subtree{
   \title{Benchmarks}
+  \transclude{eval-mechanisms}
   \subtree{
     \title{Real}
     \transclude{discoverphysics}

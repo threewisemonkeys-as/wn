@@ -1,0 +1,49 @@
+\title{How benchmarks check a discovered mechanism}
+
+\p{In these benchmarks, an AI agent studies some data, runs experiments, and then hands in a model of how the system works. The hard part is grading that model.}
+
+\subtree{
+  \title{The usual check: does it fit the data?}
+  \p{Most papers score the agent's model with a regression-style metric. They take inputs the agent has not seen, let both the agent's model and the true model predict the outputs, and measure how far apart the predictions are, usually with mean squared error (MSE). [DiscoverPhysics](discoverphysics) scores trajectory MSE on held-out particles, and [EurekaBench](eurekabench) has a "predictive accuracy" score that works the same way.}
+}
+
+\subtree{
+  \title{Why fitting the data is not enough}
+  \ul{
+    \li{\strong{Many different models can fit the same data.} A flexible formula can match every data point without saying anything true about what is going on inside the system.}
+    \li{\strong{A good fit can be meaningless.} [MDA](mda) found a symbolic-regression result in [ActiveSciBench](activescibench) with an error of only 0.001 whose equation was still wrong.}
+    \li{\strong{Agents learn to chase the score.} When the only target is low error, agents tune numbers instead of working out the mechanism. In both DiscoverPhysics and EurekaBench, the agents with the best predictions were not the ones that understood the system best.}
+  }
+  \p{So researchers have added checks that look at whether the model's insides are right, and not just its outputs.}
+}
+
+\subtree{
+  \title{Extra check 1: insight questions (EurekaBench)}
+  \p{Experts write yes/no questions about what a correct mechanism should be able to \em{explain}. After the agent hands in its mechanism, an AI judge works through each question. It answers Yes only if it can show, step by step, how the agent's mechanism leads to the answer.}
+  \p{\strong{Example (Antarctic ice shelves):} The standard ice-flow equations work where the ice is being squeezed but fail where it is being stretched. The agent has to find out why. The mechanism the experts expect is that ice resists sideways and up-down deformation by different amounts, so it needs two viscosities instead of one. One insight question asks:}
+  \blockquote{Does the new SSA equation explain why the viscosity of a real ice shelf cannot be one scalar field?}
+  \p{An agent that fits the satellite data with a flexible single-viscosity formula can still score well on prediction. But its model cannot explain why one number is not enough, so it gets No.}
+  \p{\strong{Downside:} the grading depends on an AI judge, which can be too generous.}
+}
+
+\subtree{
+  \title{Extra check 2: mechanism probes (MechBench)}
+  \p{[MechBench](https://arxiv.org/abs/2609.35515) (Tsinghua, Sept 2026) asks for a \em{number} about a hidden quantity inside the system, one that the observed data alone cannot pin down. After the agent hands in its mechanism, the mechanism is locked and each probe is asked separately. A program then checks the answer against the true formula, with no AI judge involved.}
+  \p{\strong{Example (planet orbits):} The agent only sees how long planets take to orbit at different distances. The pattern in that data is Kepler's law, #{T^2 = 4\pi^2 r^3 / GM}. A probe asks:}
+  \blockquote{What is the magnitude of the centripetal acceleration experienced by the planet?}
+  \ul{
+    \li{An agent that found Newton's gravity can answer it: #{GM/r^2}. ✓}
+    \li{An agent that just chained together formulas to reproduce Kepler's law matches the data perfectly. But its model has no "acceleration" in it, so it cannot answer. ✗}
+  }
+  \p{\strong{Result:} even when agents got the observed law right, they got the hidden mechanism wrong 64\% of the time.}
+  \p{\strong{Caveat:} a probe is only fair when the data rules out other believable mechanisms. MechBench removes tasks where two different mechanisms explain the data equally well. In one example, a population could level off either because crowding lowers the birth rate or because it raises the death rate, and those two give different answers to "what is the birth rate?".}
+}
+
+\subtree{
+  \title{In short}
+  \ul{
+    \li{\strong{Regression metric:} does the model predict the outputs? This is needed but easy to game.}
+    \li{\strong{Insight questions:} can the model explain things experts care about? This is rich but relies on an AI judge.}
+    \li{\strong{Mechanism probes:} does the model get hidden internal quantities right? This is objective, but only works for clean, closed-form mechanisms.}
+  }
+}
