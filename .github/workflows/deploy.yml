@@ -26,8 +26,9 @@ jobs:
         with:
           ocaml-compiler: "5.3"
 
+      # Our fork of Forester 5.0 (https://github.com/threewisemonkeys-as/forester, branch wn)
       - name: Install Forester
-        run: opam install -y forester.5.0
+        run: opam pin add -y forester git+https://github.com/threewisemonkeys-as/forester.git#wn
 
       - name: Build forest
         run: opam exec -- forester build

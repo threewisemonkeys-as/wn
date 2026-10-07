@@ -1,0 +1,6 @@
+# Local preview config: same as forest.toml but with localhost URLs.
+# Usage: forester serve --port=8080 forest.local.toml
+[forest]
+trees = ["trees"]
+assets = ["assets"]
+url = "http://localhost:8080/"
