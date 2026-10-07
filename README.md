@@ -1,6 +1,6 @@
 # wn
 
-A forest of evergreen notes built with [Forester](https://www.forester-notes.org/index/).
+वन (forest) of notes built with [Forester](https://www.forester-notes.org/index/).
 Published at https://threewisemonkeys-as.github.io/wn/.
 
 ## Local use
