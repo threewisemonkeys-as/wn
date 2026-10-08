@@ -18,13 +18,13 @@ if [[ "${1:-}" == "--static" ]]; then MODE=static; shift; fi
 PORT="${1:-8080}"
 ROOT="$PWD"
 
-snapshot() { find trees assets theme forest.local.toml -type f -exec stat -f '%m %N' {} + 2>/dev/null | sort; }
+snapshot() { find trees private assets theme forest.local.toml -type f -exec stat -f '%m %N' {} + 2>/dev/null | sort; }
 
 # forester build always writes to ./output, so build from a scratch directory
 # that links to the sources; this keeps output/ for the production build.
 build_static() {
   mkdir -p .local-build
-  for f in trees assets theme forest.local.toml; do ln -sfn "$ROOT/$f" ".local-build/$f"; done
+  for f in trees private assets theme forest.local.toml; do ln -sfn "$ROOT/$f" ".local-build/$f"; done
   if (cd .local-build && rm -rf output && forester build --dev forest.local.toml >/dev/null); then
     add_live_reload .local-build/output
     echo "Built .local-build/output"

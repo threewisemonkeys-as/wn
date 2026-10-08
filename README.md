@@ -31,4 +31,11 @@ The built pages are XML styled by XSLT with site-absolute paths, so opening
 the files in `output/` directly (`file://`) does not work: browsers refuse to
 run XSLT on local files. Serve them over HTTP instead (`--static` does this).
 
+### Private notes
+
+Trees in `private/` are only built by the local preview (`forest.local.toml`).
+The directory is gitignored, so they are never pushed or published. Create one
+with `forester new --prefix=wn --dest=private`. Public trees must not link to or
+transclude private ones, or the published build will fail.
+
 Pushing to `main` rebuilds and deploys the site via GitHub Actions.

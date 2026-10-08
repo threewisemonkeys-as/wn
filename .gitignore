@@ -1,2 +1,4 @@
 output/
 .local-build/
+private/*
+!private/.gitkeep
